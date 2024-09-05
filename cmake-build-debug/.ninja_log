@@ -1,0 +1,5 @@
+# ninja log v6
+1	56	1725559695175601867	build.ninja	f1355e81c7b17a20
+0	144	1725559695182151641	CMakeFiles/flight_booking_system.dir/src/main.cpp.o	c68083a153018f19
+1	330	1725559803716765139	CMakeFiles/flight_booking_system.dir/src/main.cpp.o	c68083a153018f19
+332	455	1725559804048091595	flight_booking_system	7c4c163716d2f18b

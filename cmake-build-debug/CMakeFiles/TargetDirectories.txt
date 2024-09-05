@@ -1,0 +1,3 @@
+/Users/owner/Storage/KSE/IT-Disciplines/OPD/flight-booking-system/cmake-build-debug/CMakeFiles/flight_booking_system.dir
+/Users/owner/Storage/KSE/IT-Disciplines/OPD/flight-booking-system/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/owner/Storage/KSE/IT-Disciplines/OPD/flight-booking-system/cmake-build-debug/CMakeFiles/rebuild_cache.dir
