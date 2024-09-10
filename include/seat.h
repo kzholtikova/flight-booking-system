@@ -6,5 +6,5 @@ private:
     int price;
     User* bookedBy; // may be nullptr
 public:
-    Seat(int price) : price(price) { }
+    explicit Seat(int price) : price(price) { }
 };

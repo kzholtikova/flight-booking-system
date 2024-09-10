@@ -5,7 +5,7 @@
 class System {
 private:
     std::map<char, User> users;
-    std::map<char, std::map<date, Airplane>> airplanes;
+    std::map<char, std::map<date, std::vector<Airplane>>> airplanes;
     std::vector<Ticket> tickets;
 
     Airplane& findAirplane(date userDate, int flightNumber);
@@ -13,10 +13,12 @@ private:
 public:
     System();
 
-    void checkSeat(date userDate, int flightNumber);
+    void addAirplane(Airplane& airplane);
+
+    void checkSeat(date userDate, int flightNumber) const;
     void bookSeat(date userDate, int flightNumber, const std::string& seatNumber, const std::string& username);
     void returnTicket(int ticketId);
-    void viewTicket(int ticketId);
-    void viewUserTickets(const std::string& username);
-    void viewAirplaneTickets(int flightNumber);
+    void viewTicket(int ticketId) const;
+    void viewUserTickets(const std::string& username) const;
+    void viewAirplaneTickets(int flightNumber) const;
 };
