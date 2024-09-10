@@ -10,4 +10,8 @@ private:
     int seatsPerRow;
     int seatsAvailable;
     std::vector<std::vector<Seat>> seats;
+public:
+    Airplane(int flightNumber, date flightDate, int seatsPerRow) : flightNo(flightNumber), flightDate(flightDate), seatsPerRow(seatsPerRow) { }
+
+    Seat& findSeat(const std::string& seatNumber);
 };
