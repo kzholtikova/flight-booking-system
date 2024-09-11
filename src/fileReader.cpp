@@ -1,5 +1,6 @@
 #include <fstream>
 #include <sstream>
+#include <regex>
 #include "../include/fileReader.h"
 
 void FileReader::readConfig(const std::string& path, System& system) {
@@ -23,25 +24,24 @@ void FileReader::readConfig(const std::string& path, System& system) {
 }
 
 void FileReader::readSeatsPrices(std::stringstream &ss, Airplane &airplane) {
-    int numberOfSeats, price;
-    while (ss >> numberOfSeats >> price) {
-        if (ss.fail())
+    std::string seatsNumbers, price;  // sample strings: 21-40 100$
+    while (ss >> seatsNumbers) {
+        ss >> price;
+        if (ss.fail() || !std::regex_match(seatsNumbers,std::regex("^[0-9]+-[0-9]+$")) || !std::regex_match(price, std::regex("^[0-9]+\\$$")))
             throw std::invalid_argument("Invalid seats prices data for " + airplane.getFlightNumber());
-        airplane.addSeats(numberOfSeats, price);
+        size_t separatorIdx = seatsNumbers.find("-");
+        airplane.addSeats(std::stoi(seatsNumbers.substr(separatorIdx + 1)) - std::stoi(seatsNumbers.substr(0, separatorIdx)), std::stoi(price));
     }
-
-    if (ss.fail())
-        throw std::invalid_argument("The price for seats is missing for " + airplane.getFlightNumber());
 }
 
 void FileReader::validateFlightInfo(std::tm& tm, const std::string& flightDate, const std::string& flightNo, const std::string& seatsPerRow) {
     std::stringstream ss(flightDate);
     ss >> std::get_time(&tm, "%d.%m.%Y");
 
-    if (ss.fail() || ss.eof())
+    if (ss.fail())
         throw std::invalid_argument("Invalid flight date for " + flightNo);
-    if (flightNo.length() < 3 || !isalpha(flightNo[0]) || !isalpha(flightNo[1]) || !std::all_of(flightNo.begin() + 2, flightNo.end(), ::isdigit))
+    if (!std::regex_match(flightNo, std::regex("^[A-Z]{2}[0-9]+$")))
         throw std::invalid_argument("Invalid flight number for " + flightNo);
-    if (seatsPerRow.empty() || !std::all_of(seatsPerRow.begin(), seatsPerRow.end(), ::isdigit) || std::stoi(seatsPerRow) <= 0)
+    if (seatsPerRow.empty() || !std::all_of(seatsPerRow.begin(), seatsPerRow.end(), ::isdigit))
         throw std::invalid_argument("Invalid seats per row number for " + flightNo);
 }
