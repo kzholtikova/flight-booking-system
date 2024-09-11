@@ -1,6 +1,7 @@
 #pragma once
 #include <map>
 #include "airplane.h"
+#include "user.h"
 
 class System {
 private:
@@ -11,8 +12,7 @@ private:
     Airplane& findAirplane(date userDate, int flightNumber);
     Ticket& findTicket(int ticketId);
 public:
-    System();
-
+    System() = default;
     void addAirplane(Airplane& airplane);
 
     void checkSeat(date userDate, int flightNumber) const;
