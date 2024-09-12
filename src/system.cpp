@@ -19,15 +19,16 @@ void System::launch() {
     }
 
     printCommandsInfo();
-    std::cout << "Choose a command (help/ check/ book/ return/ view/ exit): \n";
+    std::cout << "Choose a command (help/ check/ book/ return/ view/ exit): ";
     std::string line;
     while (std::getline(std::cin, line) && line != "exit") {
         try {
             executeCommand(line);
         } catch (const std::invalid_argument& e) {
-            std::cerr << "Error: " << e.what() << "\n";
+            std::cerr << "Error: " << e.what();
+            std::cin.get();
         }
-        std::cout << "Choose a command (help/ check/ book/ return/ view/ exit): \n";
+        std::cout << "Choose a command (help/ check/ book/ return/ view/ exit): ";
     }
 }
 

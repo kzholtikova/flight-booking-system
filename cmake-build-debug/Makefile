@@ -153,29 +153,29 @@ src/airplane.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flight_booking_system.dir/build.make CMakeFiles/flight_booking_system.dir/src/airplane.cpp.s
 .PHONY : src/airplane.cpp.s
 
-src/fileReader.o: src/fileReader.cpp.o
-.PHONY : src/fileReader.o
+src/inputReader.o: src/inputReader.cpp.o
+.PHONY : src/inputReader.o
 
 # target to build an object file
-src/fileReader.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/flight_booking_system.dir/build.make CMakeFiles/flight_booking_system.dir/src/fileReader.cpp.o
-.PHONY : src/fileReader.cpp.o
+src/inputReader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flight_booking_system.dir/build.make CMakeFiles/flight_booking_system.dir/src/inputReader.cpp.o
+.PHONY : src/inputReader.cpp.o
 
-src/fileReader.i: src/fileReader.cpp.i
-.PHONY : src/fileReader.i
+src/inputReader.i: src/inputReader.cpp.i
+.PHONY : src/inputReader.i
 
 # target to preprocess a source file
-src/fileReader.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/flight_booking_system.dir/build.make CMakeFiles/flight_booking_system.dir/src/fileReader.cpp.i
-.PHONY : src/fileReader.cpp.i
+src/inputReader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flight_booking_system.dir/build.make CMakeFiles/flight_booking_system.dir/src/inputReader.cpp.i
+.PHONY : src/inputReader.cpp.i
 
-src/fileReader.s: src/fileReader.cpp.s
-.PHONY : src/fileReader.s
+src/inputReader.s: src/inputReader.cpp.s
+.PHONY : src/inputReader.s
 
 # target to generate assembly for a file
-src/fileReader.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/flight_booking_system.dir/build.make CMakeFiles/flight_booking_system.dir/src/fileReader.cpp.s
-.PHONY : src/fileReader.cpp.s
+src/inputReader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flight_booking_system.dir/build.make CMakeFiles/flight_booking_system.dir/src/inputReader.cpp.s
+.PHONY : src/inputReader.cpp.s
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
@@ -309,9 +309,9 @@ help:
 	@echo "... src/airplane.o"
 	@echo "... src/airplane.i"
 	@echo "... src/airplane.s"
-	@echo "... src/fileReader.o"
-	@echo "... src/fileReader.i"
-	@echo "... src/fileReader.s"
+	@echo "... src/inputReader.o"
+	@echo "... src/inputReader.i"
+	@echo "... src/inputReader.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
