@@ -4,6 +4,7 @@
 #include "airplane.h"
 #include "user.h"
 
+using date = std::chrono::time_point<std::chrono::system_clock>;
 
 class System {
 private:
@@ -13,11 +14,11 @@ private:
 
     User* findUser(const std::string& username);
     Airplane* findAirplane(const std::string& userDate, const std::string& flightNumber);
-    Ticket* findTicket(int ticketId);
+    Ticket* findTicket(int id);
 
-    void viewTicketbById(int id) const;
-    void viewUserTickets(const std::string& username) const;
-    void viewAirplaneTickets(date flightDate, const std::string& flightNo) const;
+    void viewTicketById(int id);
+    void viewUserTickets(const std::string& username);
+    void viewAirplaneTickets(const std::string& flightDate, const std::string& flightNo);
 
     void executeCommand(const std::string& command);
 public:
@@ -27,7 +28,8 @@ public:
     System() = default;
     void launch();
 
-    void addAirplane(Airplane& airplane);
+    void addUser(User& user);
+    void addAirplane(Airplane& airplane, date tm);
 
     void printCommandsInfo() const;
     void checkSeats(std::stringstream& ss);

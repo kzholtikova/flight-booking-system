@@ -2,22 +2,23 @@
 #include <chrono>
 #include <map>
 #include "seat.h"
-using date = std::chrono::time_point<std::chrono::system_clock>;
 
 class Airplane {
 private:
     std::string flightNo;
-    date flightDate;
+    std::string flightDate;
     int seatsPerRow;
     int totalSeats = 0;
     std::vector<Seat> seats;
 public:
-    Airplane(date flightDate, const std::string& flightNumber, int seatsPerRow) : flightDate(flightDate), flightNo(flightNumber), seatsPerRow(seatsPerRow) { }
+    Airplane(const std::string& flightDate, const std::string& flightNumber, int seatsPerRow) : flightDate(flightDate), flightNo(flightNumber), seatsPerRow(seatsPerRow) { }
+    std::string toString() const;
 
     void addSeats(int numberOfSeats, int price);
     Seat* findSeat(const std::string& seatNumber);
     std::string getFlightNumber() const;
-    date getFlightDate() const;
+    std::string getFlightDate() const;
     int getSeatsPerRow() const;
-    std::vector<Seat> getAvailableSeats() const;
+    std::vector<Seat> getSeatsByCondition(bool available) const;
+
 };

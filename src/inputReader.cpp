@@ -17,10 +17,10 @@ void InputReader::readConfig(const std::string& path, System* system) {
         validateFlightInfo(tm, flightDate, flightNo);
         validatePositiveInt(seatsPerRow);
 
-        Airplane airplane(std::chrono::system_clock::from_time_t(std::mktime(&tm)), flightNo, std::stoi(seatsPerRow));
+        Airplane airplane(flightDate, flightNo, std::stoi(seatsPerRow));
         readSeatsPrices(ss, airplane);
 
-        system->addAirplane(airplane);
+        system->addAirplane(airplane, tm);
     }
 }
 

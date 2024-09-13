@@ -6,11 +6,14 @@ class Seat {
 private:
     int price;
     std::string seatNo;
-    bool available = true;
+    int ticketId = -1;
 public:
     explicit Seat(int price, const std::string& seatNo) : price(price), seatNo(seatNo) { }
+    std::string toString() const;
+
     bool isAvailable() const;
+    int getTicketId() const;
     int getPrice() const;
-    std::string getSeatNumber();
-    void book();
+    std::string getSeatNumber() const;
+    void book(int ticketIdIn);
 };

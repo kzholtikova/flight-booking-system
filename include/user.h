@@ -8,7 +8,7 @@ private:
     std::vector<Ticket*> userTickets;  // weak_ptr
 public:
     std::string username;
-    User(const std::string& username, Ticket* firstTicket) : username(username), userTickets({firstTicket}) {}
+    User(const std::string& username) : username(username) {}
 
     void addTicket(Ticket* ticket);
     std::vector<Ticket*> getTickets() const;

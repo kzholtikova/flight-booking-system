@@ -5,7 +5,7 @@ std::string Airplane::getFlightNumber() const {
     return flightNo;
 }
 
-date Airplane::getFlightDate() const {
+std::string Airplane::getFlightDate() const {
     return flightDate;
 }
 
@@ -26,11 +26,15 @@ Seat* Airplane::findSeat(const std::string& seatNumber) {
     return seatIndex < seats.size() ? &seats[seatIndex] : nullptr;
 }
 
-std::vector<Seat> Airplane::getAvailableSeats() const {
-    std::vector<Seat> availableSeats;
+std::vector<Seat> Airplane::getSeatsByCondition(bool available) const {
+    std::vector<Seat> filteredSeats;
     for (auto seat : seats) {
-        if (seat.isAvailable())
-            availableSeats.push_back(seat);
+        if ((available && seat.isAvailable()) || (!available && !seat.isAvailable()))
+            filteredSeats.push_back(seat);
     }
-    return availableSeats;
+    return filteredSeats;
+}
+
+std::string Airplane::toString() const {
+    return "Flight " + flightNo + ", " + flightDate;
 }
