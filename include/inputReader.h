@@ -11,4 +11,5 @@ public:
     static void validatePositiveInt(const std::string num);
     static void validateString(const std::string& str);
     static void validateSeatNo(const std::string& str, const int seatsPerRow);
+    static void validateEndOfAString(std::stringstream& ss);
 };

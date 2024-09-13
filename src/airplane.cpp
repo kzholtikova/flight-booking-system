@@ -10,8 +10,8 @@ std::string Airplane::getFlightDate() const {
 }
 
 void Airplane::addSeats(int numberOfSeats, int price) {
-    for (int i = totalSeats + 1 ; i <= totalSeats + numberOfSeats; i++)
-        seats.push_back(Seat(price, std::to_string(i / seatsPerRow + 1) + char(('A' + i % seatsPerRow))));
+    for (int i = totalSeats ; i < totalSeats + numberOfSeats; i++)
+        seats.push_back(Seat(price, std::to_string((i)/ seatsPerRow + 1) + char(('A' + i % seatsPerRow))));
     totalSeats += numberOfSeats;
 }
 

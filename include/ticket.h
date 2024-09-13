@@ -3,13 +3,13 @@
 
 class Ticket {
 private:
+    static int lastId;
     int id;
     Airplane* airplane;  // shared_ptr?
     std::string seatNo;
     std::string passenger;
 public:
-    Ticket(int id, Airplane* airplanePtr, const std::string& seatNumber, const std::string username) :
-    id(id), airplane(airplanePtr), seatNo(seatNumber), passenger(username) { };
+    Ticket(Airplane* airplanePtr, const std::string& seatNumber, const std::string username);
     std::string toString() const;
 
     int getId() const;
