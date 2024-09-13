@@ -18,4 +18,5 @@ public:
     Seat& findSeat(const std::string& seatNumber);
     std::string getFlightNumber() const;
     date getFlightDate() const;
+    int getSeatsPerRow() const;
 };

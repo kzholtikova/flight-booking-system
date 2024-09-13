@@ -14,9 +14,9 @@ private:
     Airplane& findAirplane(date userDate, int flightNumber);
     Ticket& findTicket(int ticketId);
 
-    void viewTicketbById(std::stringstream& ss) const;
-    void viewUserTickets(std::stringstream& ss) const;
-    void viewAirplaneTickets(std::stringstream& ss) const;
+    void viewTicketbById(int id) const;
+    void viewUserTickets(const std::string& username) const;
+    void viewAirplaneTickets(date flightDate, const std::string& flightNo) const;
 
     void executeCommand(const std::string& command);
 public:

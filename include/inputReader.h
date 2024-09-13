@@ -10,4 +10,5 @@ public:
     static void validateFlightInfo(std::tm& tm, const std::string& flightDate, const std::string& flighNo);
     static void validatePositiveInt(const std::string num);
     static void validateString(const std::string& str);
+    static void validateSeatNo(const std::string& str, const int seatsPerRow);
 };

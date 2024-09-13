@@ -12,3 +12,7 @@ void Airplane::addSeats(int numberOfSeats, int price) {
     for (int i = 0; i < numberOfSeats; i++)
         seats.push_back(Seat(price));
 }
+
+int Airplane::getSeatsPerRow() const {
+    return seatsPerRow;
+}

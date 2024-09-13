@@ -68,17 +68,50 @@ void System::addAirplane(Airplane &airplane) {
 }
 
 void System::checkSeat(std::stringstream& ss) {
-
+    std::string flightDate, flightNo;
+    ss << flightDate << flightNo;
+    std::tm tm = {};
+    InputReader::validateFlightInfo(tm, flightDate, flightNo);
 }
 
 void System::bookSeat(std::stringstream& ss) {
+    std::string flightDate, flightNo, seat, username;
+    ss << flightDate << flightNo << seat << username;
+    std::tm tm = {};
+    InputReader::validateFlightInfo(tm, flightDate, flightNo);
+    InputReader::validateString(username);
+
+    for (Airplane& airplane : airplanes[flightNo[0]][std::chrono::system_clock::from_time_t(std::mktime(&tm))]) {
+        if (airplane.getFlightNumber() == flightNo) {
+            InputReader::validateSeatNo(seat, airplane.getSeatsPerRow());
+            // book
+            break;
+        }
+    }
 
 }
 
 void System::returnTicket(std::stringstream& ss) {
+    std::string id;  // int id?
+    ss << id;
+    InputReader::validatePositiveInt(id);
 
 }
 
 void System::viewTickets(std::stringstream& ss) {
+    std::string argument, argument2;
+    ss << argument;
+    if (ss << argument2) {
+        std::tm tm = {};
+        InputReader::validateFlightInfo(tm, argument, argument2);
+        return viewAirplaneTickets(std::chrono::system_clock::from_time_t(std::mktime(&tm)), argument2);
+    }
 
+    try {  // ??? refactor
+        InputReader::validatePositiveInt(argument);
+        return viewTicketbById(std::stoi(argument));
+    } catch (const std::invalid_argument& e) {
+        InputReader::validateString(argument);
+        return viewUserTickets(argument);
+    }
 }

@@ -47,10 +47,15 @@ void InputReader::validateFlightInfo(std::tm& tm, const std::string& flightDate,
 
 void InputReader::validatePositiveInt(const std::string num) {
     if (!std::regex_match(num, std::regex("^[0-9]+$")))
-        throw std::invalid_argument("This argument must be positive integer: " + num);
+        throw std::invalid_argument("Argument '" + num + "' must be positive integer: ");
 };
 
 void InputReader::validateString(const std::string& str) {
     if (!std::regex_match(str, std::regex("^[a-z]{4,}$")))
-        throw std::invalid_argument("This argument must consist only of letters: " + str);
+        throw std::invalid_argument("Argument '" + str + "' must consist only of letters.");
+}
+
+void InputReader::validateSeatNo(const std::string& str, const int seatsPerRow) {
+    if(!std::regex_match(str, std::regex("^[A-" + std::string(1, 'A' + seatsPerRow) + "][0-9]$")))
+        throw std::invalid_argument("Seat No" + str + " doesn't exist.");
 }
