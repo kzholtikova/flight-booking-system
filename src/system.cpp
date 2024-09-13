@@ -4,7 +4,7 @@
 
 
 std::map<std::string, System::command> System::commands = {
-        {"check", &System::checkSeat},
+        {"check", &System::checkSeats},
         {"book", &System::bookSeat},
         {"return", &System::returnTicket},
         {"view", &System::viewTickets},
@@ -67,13 +67,15 @@ void System::addAirplane(Airplane &airplane) {
     airplanes[flightNumberFirstChar][flightDate].push_back(airplane);
 }
 
-void System::checkSeat(std::stringstream& ss) {
+void System::checkSeats(std::stringstream& ss) {
     std::string flightDate, flightNo;
     ss << flightDate << flightNo;
-    std::tm tm = {};
-    InputReader::validateFlightInfo(tm, flightDate, flightNo);
+    auto airplane = findAirplane(flightDate, flightNo);
+    if (airplane == nullptr)
+        throw std::invalid_argument("No such airplane.");
 
-
+    for (auto seat : airplane->getAvailableSeats())
+        std::cout << seat.getSeatNumber() << " " << seat.getPrice() << "% ";
 }
 
 void System::bookSeat(std::stringstream& ss) {
@@ -81,11 +83,14 @@ void System::bookSeat(std::stringstream& ss) {
     ss << flightDate << flightNo << seatNo << username;
     InputReader::validateString(username);
     auto airplane = findAirplane(flightDate, flightNo);
+    if (airplane == nullptr)
+        throw std::invalid_argument("No such airplane.");
     auto seat = airplane->findSeat(seatNo);
+    if (seat == nullptr)
+        throw std::invalid_argument("No such seat.");
 
     auto ticket = Ticket(airplane, seatNo);
     tickets.push_back(ticket);
-
     auto user = findUser(username);
     if (user != nullptr)
         user->addTicket(&ticket);

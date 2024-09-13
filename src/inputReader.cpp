@@ -31,7 +31,7 @@ void InputReader::readSeatsPrices(std::stringstream &ss, Airplane &airplane) {
         if (ss.fail() || !std::regex_match(seatsNumbers,std::regex("^[0-9]+-[0-9]+$")) || !std::regex_match(price, std::regex("^[0-9]+\\$$")))
             throw std::invalid_argument("Invalid seats prices data for " + airplane.getFlightNumber());
         size_t separatorIdx = seatsNumbers.find("-");
-        airplane.addSeats(std::stoi(seatsNumbers.substr(separatorIdx + 1)) - std::stoi(seatsNumbers.substr(0, separatorIdx)), std::stoi(price));
+        airplane.addSeats(std::stoi(seatsNumbers.substr(separatorIdx + 1)) - std::stoi(seatsNumbers.substr(0, separatorIdx)) + 1, std::stoi(price));
     }
 }
 

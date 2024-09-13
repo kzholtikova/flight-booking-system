@@ -10,8 +10,9 @@ date Airplane::getFlightDate() const {
 }
 
 void Airplane::addSeats(int numberOfSeats, int price) {
-    for (int i = 0; i < numberOfSeats; i++)
-        seats.push_back(Seat(price));
+    for (int i = totalSeats + 1 ; i <= totalSeats + numberOfSeats; i++)
+        seats.push_back(Seat(price, std::to_string(i / seatsPerRow + 1) + char(('A' + i % seatsPerRow))));
+    totalSeats += numberOfSeats;
 }
 
 int Airplane::getSeatsPerRow() const {
@@ -23,4 +24,13 @@ Seat* Airplane::findSeat(const std::string& seatNumber) {
     int seatRow = (std::stoi(seatNumber.substr(0, seatNumber.size() - 1)) - 1);
     int seatColumn = seatNumber.back() - 'A', seatIndex = seatRow * seatsPerRow + seatColumn;
     return seatIndex < seats.size() ? &seats[seatIndex] : nullptr;
+}
+
+std::vector<Seat> Airplane::getAvailableSeats() const {
+    std::vector<Seat> availableSeats;
+    for (auto seat : seats) {
+        if (seat.isAvailable())
+            availableSeats.push_back(seat);
+    }
+    return availableSeats;
 }

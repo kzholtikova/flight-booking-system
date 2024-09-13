@@ -30,7 +30,7 @@ public:
     void addAirplane(Airplane& airplane);
 
     void printCommandsInfo() const;
-    void checkSeat(std::stringstream& ss);
+    void checkSeats(std::stringstream& ss);
     void bookSeat(std::stringstream& ss);
     void returnTicket(std::stringstream& ss);
     void viewTickets(std::stringstream& ss);

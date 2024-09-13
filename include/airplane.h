@@ -9,7 +9,7 @@ private:
     std::string flightNo;
     date flightDate;
     int seatsPerRow;
-    int seatsAvailable;
+    int totalSeats = 0;
     std::vector<Seat> seats;
 public:
     Airplane(date flightDate, const std::string& flightNumber, int seatsPerRow) : flightDate(flightDate), flightNo(flightNumber), seatsPerRow(seatsPerRow) { }
@@ -19,4 +19,5 @@ public:
     std::string getFlightNumber() const;
     date getFlightDate() const;
     int getSeatsPerRow() const;
+    std::vector<Seat> getAvailableSeats() const;
 };
