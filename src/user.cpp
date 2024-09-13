@@ -1,6 +1,11 @@
-//
-// Created by owner on 05.09.2024.
-//
-
 #include "../include/user.h"
-#include "../include/ticket.h"
+
+void User::addTicket(std::shared_ptr<Ticket> ticket) {
+    userTickets.push_back(ticket);
+}
+
+std::vector<std::shared_ptr<Ticket>> User::getTickets() const {
+    return userTickets;
+}
+
+

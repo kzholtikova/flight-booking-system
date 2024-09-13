@@ -3,10 +3,17 @@
 
 class Ticket {
 private:
-    static int lastID;
+    static int lastId;
     int id;
-    Airplane& airplane;  // airplane always refers to the object
-    int seatNo;
+    Airplane* airplane;  // shared_ptr?
+    std::string seatNo;
+    std::string passenger;
 public:
-    Ticket(Airplane& airplane, int seatNumber) : airplane(airplane), seatNo(seatNumber) { }
+    Ticket(Airplane* airplanePtr, const std::string& seatNumber, const std::string username);
+    std::string toString() const;
+
+    int getId() const;
+    Airplane* getAirplane() const;
+    std::string getSeatNo() const;
+    std::string getPassengerUsername() const;
 };
