@@ -56,6 +56,6 @@ void InputReader::validateString(const std::string& str) {
 }
 
 void InputReader::validateSeatNo(const std::string& str, const int seatsPerRow) {
-    if(!std::regex_match(str, std::regex("^[A-" + std::string(1, 'A' + seatsPerRow) + "][0-9]$")))
+    if(!std::regex_match(str, std::regex("^[1-9]+[A-" + std::string(1, 'A' + seatsPerRow) + "]$")))
         throw std::invalid_argument("Seat No" + str + " doesn't exist.");
 }

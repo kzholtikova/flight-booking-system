@@ -5,8 +5,11 @@
 
 class User {
 private:
-    std::string username;
     std::vector<Ticket*> userTickets;  // weak_ptr
 public:
+    std::string username;
     User(const std::string& username, Ticket* firstTicket) : username(username), userTickets({firstTicket}) {}
+
+    void addTicket(Ticket* ticket);
+    std::vector<Ticket*> getTickets() const;
 };

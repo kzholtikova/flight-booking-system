@@ -1,4 +1,5 @@
 #include "../include/airplane.h"
+#include "../include/inputReader.h"
 
 std::string Airplane::getFlightNumber() const {
     return flightNo;
@@ -15,4 +16,11 @@ void Airplane::addSeats(int numberOfSeats, int price) {
 
 int Airplane::getSeatsPerRow() const {
     return seatsPerRow;
+}
+
+Seat* Airplane::findSeat(const std::string& seatNumber) {
+    InputReader::validateSeatNo(seatNumber, seatsPerRow);
+    int seatRow = (std::stoi(seatNumber.substr(0, seatNumber.size() - 1)) - 1);
+    int seatColumn = seatNumber.back() - 'A', seatIndex = seatRow * seatsPerRow + seatColumn;
+    return seatIndex < seats.size() ? &seats[seatIndex] : nullptr;
 }

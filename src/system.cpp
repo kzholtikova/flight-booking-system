@@ -62,7 +62,7 @@ void System::addAirplane(Airplane &airplane) {
     if (airplanes.count(flightNumberFirstChar) == 0)
         airplanes.insert({flightNumberFirstChar, std::map<date, std::vector<Airplane>>()});
     if (airplanes[flightNumberFirstChar].count(flightDate) == 0)
-        airplanes[flightNumberFirstChar].insert({flightDate, std::vector<Airplane>{airplane}});
+        airplanes[flightNumberFirstChar].insert({flightDate, std::vector<Airplane>{}});
 
     airplanes[flightNumberFirstChar][flightDate].push_back(airplane);
 }
@@ -72,23 +72,27 @@ void System::checkSeat(std::stringstream& ss) {
     ss << flightDate << flightNo;
     std::tm tm = {};
     InputReader::validateFlightInfo(tm, flightDate, flightNo);
+
+
 }
 
 void System::bookSeat(std::stringstream& ss) {
-    std::string flightDate, flightNo, seat, username;
-    ss << flightDate << flightNo << seat << username;
-    std::tm tm = {};
-    InputReader::validateFlightInfo(tm, flightDate, flightNo);
+    std::string flightDate, flightNo, seatNo, username;
+    ss << flightDate << flightNo << seatNo << username;
     InputReader::validateString(username);
+    auto airplane = findAirplane(flightDate, flightNo);
+    auto seat = airplane->findSeat(seatNo);
 
-    for (Airplane& airplane : airplanes[flightNo[0]][std::chrono::system_clock::from_time_t(std::mktime(&tm))]) {
-        if (airplane.getFlightNumber() == flightNo) {
-            InputReader::validateSeatNo(seat, airplane.getSeatsPerRow());
-            // book
-            break;
-        }
-    }
+    auto ticket = Ticket(airplane, seatNo);
+    tickets.push_back(ticket);
 
+    auto user = findUser(username);
+    if (user != nullptr)
+        user->addTicket(&ticket);
+    else
+        users.insert({username[0], std::vector<User>{User(username, &ticket)}});
+
+    seat->book();
 }
 
 void System::returnTicket(std::stringstream& ss) {
@@ -114,4 +118,25 @@ void System::viewTickets(std::stringstream& ss) {
         InputReader::validateString(argument);
         return viewUserTickets(argument);
     }
+}
+
+User* System::findUser(const std::string& username) {
+    if (users.count(username[0]) != 0) {
+        for (auto& user : users[username[0]]) {
+            if (user.username == username)
+                return &user;
+        }
+    }
+    return nullptr;
+}
+
+Airplane* System::findAirplane(const std::string& userDate, const std::string& flightNumber) {
+    std::tm tm = {};
+    InputReader::validateFlightInfo(tm, userDate, flightNumber);
+    for (Airplane& airplane : airplanes[flightNumber[0]][std::chrono::system_clock::from_time_t(std::mktime(&tm))]) {
+        if (airplane.getFlightNumber() == flightNumber)
+            return &airplane;
+    }
+
+    return nullptr;
 }

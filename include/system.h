@@ -7,12 +7,13 @@
 
 class System {
 private:
-    std::map<char, User> users;
+    std::map<char, std::vector<User>> users;
     std::map<char, std::map<date, std::vector<Airplane>>> airplanes;
     std::vector<Ticket> tickets;
 
-    Airplane& findAirplane(date userDate, int flightNumber);
-    Ticket& findTicket(int ticketId);
+    User* findUser(const std::string& username);
+    Airplane* findAirplane(const std::string& userDate, const std::string& flightNumber);
+    Ticket* findTicket(int ticketId);
 
     void viewTicketbById(int id) const;
     void viewUserTickets(const std::string& username) const;
