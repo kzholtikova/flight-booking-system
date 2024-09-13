@@ -14,9 +14,9 @@ private:
 
     User* findUser(const std::string& username);
     Airplane* findAirplane(const std::string& userDate, const std::string& flightNumber);
-    Ticket* findTicket(int id);
+    int findTicketIndex(const std::string& id);
 
-    void viewTicketById(int id);
+    void viewTicketById(const std::string& id);
     void viewUserTickets(const std::string& username);
     void viewAirplaneTickets(const std::string& flightDate, const std::string& flightNo);
 

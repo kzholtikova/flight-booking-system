@@ -23,3 +23,7 @@ int Seat::getTicketId() const {
 std::string Seat::toString() const {
     return "seat " + seatNo + ", price " + std::to_string(price) + "$";
 }
+
+void Seat::unbook() {
+    ticketId = -1;
+}

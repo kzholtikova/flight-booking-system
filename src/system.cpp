@@ -110,8 +110,9 @@ void System::bookSeat(std::stringstream& ss) {
 void System::returnTicket(std::stringstream& ss) {
     std::string id;  // int id?
     ss << id;
-    InputReader::validatePositiveInt(id);
-
+    int ticketIndex = findTicketIndex(id);
+    tickets[ticketIndex].getAirplane()->findSeat(tickets[ticketIndex].getSeatNo())->unbook();
+    tickets.erase(tickets.begin() + ticketIndex);
 }
 
 void System::viewTickets(std::stringstream& ss) {
@@ -122,11 +123,9 @@ void System::viewTickets(std::stringstream& ss) {
     }
 
     try {  // ??? refactor
-        InputReader::validatePositiveInt(argument);
-        return viewTicketById(std::stoi(argument));
+        viewTicketById(argument);
     } catch (const std::invalid_argument& e) {
-        InputReader::validateString(argument);
-        return viewUserTickets(argument);
+        viewUserTickets(argument);
     }
 }
 
@@ -151,29 +150,33 @@ Airplane* System::findAirplane(const std::string& userDate, const std::string& f
     return nullptr;
 }
 
-Ticket* System::findTicket(int id) {
+int System::findTicketIndex(const std::string& idStr) {
+    InputReader::validatePositiveInt(idStr);
+    int id = std::stoi(idStr);
+
     int low = 0, high = tickets.size() - 1;
     while (low <= high) {
         int mid = low + (high - low) / 2;
         if (tickets[mid].getId() == id)
-            return &tickets[mid];
+            return mid;
         if (tickets[mid].getId() < id)
             low = mid + 1;
         else
             high = mid - 1;
     }
 
-    return nullptr;
+    return -1;
 }
 
-void System::viewTicketById(int id) {
-    auto ticket = findTicket(id);
-    if (ticket == nullptr)
-        throw std::invalid_argument("No ticket with ID " + std::to_string(id));
-    std::cout << ticket->toString() << ticket->getPassengerUsername();
+void System::viewTicketById(const std::string& id) {
+    int ticketIndex = findTicketIndex(id);
+    if (ticketIndex == -1)
+        throw std::invalid_argument("No ticket with ID " + id);
+    std::cout << tickets[ticketIndex].toString() << tickets[ticketIndex].getPassengerUsername();
 }
 
 void System::viewUserTickets(const std::string &username) {
+    InputReader::validateString(username);
     auto user = findUser(username);
     if (user == nullptr)
         throw std::invalid_argument("No user with username " + username);
@@ -186,5 +189,6 @@ void System::viewAirplaneTickets(const std::string& flightDate, const std::strin
     if (airplane == nullptr)
         throw std::invalid_argument("No flight with number " + flightNo + " on " + flightDate);
     for (auto seat : airplane->getSeatsByCondition(false))
-        std::cout << seat.toString() << ", " << findTicket(seat.getTicketId())->getPassengerUsername() << "%\n";
+        std::cout << seat.toString() << ", " <<
+        tickets[findTicketIndex(std::to_string(seat.getTicketId()))].getPassengerUsername() << "%\n";
 }
