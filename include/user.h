@@ -6,11 +6,11 @@
 
 class User {
 private:
-    std::vector<std::shared_ptr<Ticket>> userTickets;  // weak_ptr
+    std::vector<std::weak_ptr<Ticket>> userTickets;
 public:
     std::string username;
     User(const std::string& username) : username(username) {}
 
     void addTicket(std::shared_ptr<Ticket> ticket);
-    std::vector<std::shared_ptr<Ticket>> getTickets() const;
+    std::vector<std::weak_ptr<Ticket>> getTickets() const;
 };

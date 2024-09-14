@@ -191,8 +191,9 @@ void System::viewUserTickets(const std::string &username) {
     auto user = findUser(username);
     if (user == nullptr)
         throw std::invalid_argument("No user with username " + username  + ".");
-    for (auto ticket : user->getTickets())
-        std::cout << ticket->toString() << "\n";
+    for (auto weakTicket : user->getTickets())
+        if (auto ticket = weakTicket.lock())
+            std::cout << ticket->toString() << "\n";
 }
 
 void System::viewAirplaneTickets(const std::string& flightDate, const std::string &flightNo) {
