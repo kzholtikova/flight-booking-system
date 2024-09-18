@@ -10,7 +10,7 @@ class System {
 private:
     std::map<char, std::vector<User>> users;
     std::map<char, std::map<date, std::vector<Airplane>>> airplanes;
-    std::vector<Ticket> tickets;
+    std::vector<std::shared_ptr<Ticket>> tickets;
 
     User* findUser(const std::string& username);
     Airplane* findAirplane(const std::string& userDate, const std::string& flightNumber);

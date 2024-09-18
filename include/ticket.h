@@ -5,7 +5,7 @@ class Ticket {
 private:
     static int lastId;
     int id;
-    Airplane* airplane;  // shared_ptr?
+    Airplane* airplane;
     std::string seatNo;
     std::string passenger;
 public:
