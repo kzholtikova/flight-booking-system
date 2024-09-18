@@ -8,14 +8,6 @@ bool Seat::isAvailable() const {
     return ticketId == -1;
 }
 
-int Seat::getPrice() const {
-    return price;
-}
-
-std::string Seat::getSeatNumber() const {
-    return seatNo;
-}
-
 int Seat::getTicketId() const {
     return ticketId;
 }

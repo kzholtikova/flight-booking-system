@@ -13,8 +13,6 @@ public:
 
     bool isAvailable() const;
     int getTicketId() const;
-    int getPrice() const;
-    std::string getSeatNumber() const;
 
     void book(int ticketIdIn);
     void unbook();
